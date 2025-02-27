@@ -10,6 +10,7 @@ cellToRegion
 blockMeshDict
 log.*
 *.vtk
+*.foam
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
