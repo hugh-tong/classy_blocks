@@ -1,5 +1,5 @@
 import os
-
+import json
 import numpy as np
 
 import classy_blocks as cb
@@ -32,12 +32,31 @@ m1 = num_particle * dia_particle
 print("Moment.1 = {}".format(m1))
 ######
 
-pipe_radius = rt
-muffler_radius = Rb
-ref_length =  dt
+with open ('../../geo_data/pipe_elbow.json', 'r') as f:
+    data = json.load(f)
 
+# pipe_radius = rt
+# bend_radius = Rb
+# ref_length =  dt
 
-cell_size = 0.000063
+pipe_radius = data['pipe_radius']
+bend_radius = data['bend_radius']
+ref_length =  data['ref_length']
+bend_curvature = np.pi / 2
+
+print("Pass para to classy_block, pipe_radius = {}".format(pipe_radius))
+print("Pass para to classy_block, bend_radius = {}".format(bend_radius))
+print("Pass para to classy_block, ref_length = {}".format(ref_length))
+
+# cell_size = 0.000063
+cell_size = data['cell_size']
+# NOTE: cell_size relate to mesh number:
+# 0.000063 -> 1458660
+# 0.00063  -> 2820
+# 0.0005   -> 3480
+# 0.00005  -> 2975400
+# 0.0001   -> 393300
+# 0.00008  -> 719712
 
 shapes = []
 # 1
@@ -49,10 +68,10 @@ shapes[-1].set_start_patch("inlet")
 
  
 # 2
-# elbow_center = shapes[-1].sketch_2.center + np.array([0, 2 * muffler_radius, 0])
-elbow_center = shapes[-1].sketch_2.center + np.array([0, muffler_radius, 0])
+# elbow_center = shapes[-1].sketch_2.center + np.array([0, 2 * bend_radius, 0])
+elbow_center = shapes[-1].sketch_2.center + np.array([0, bend_radius, 0])
 shapes.append(
-    cb.Elbow.chain(shapes[-1], np.pi / 2, elbow_center, [0, 0, 1], pipe_radius)
+    cb.Elbow.chain(shapes[-1], bend_curvature, elbow_center, [0, 0, 1], pipe_radius)
 )
 
 shapes[-1].chop_axial(start_size=cell_size)
