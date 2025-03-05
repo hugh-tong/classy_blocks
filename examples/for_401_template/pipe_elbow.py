@@ -42,7 +42,7 @@ with open ('../../geo_data/pipe_elbow.json', 'r') as f:
 pipe_radius = data['pipe_radius']
 bend_radius = data['bend_radius']
 ref_length =  data['ref_length']
-bend_curvature = np.pi / 2
+bend_curvature = -1.0 * np.pi / 2
 
 print("Pass para to classy_block, pipe_radius = {}".format(pipe_radius))
 print("Pass para to classy_block, bend_radius = {}".format(bend_radius))
@@ -69,7 +69,8 @@ shapes[-1].set_start_patch("inlet")
  
 # 2
 # elbow_center = shapes[-1].sketch_2.center + np.array([0, 2 * bend_radius, 0])
-elbow_center = shapes[-1].sketch_2.center + np.array([0, bend_radius, 0])
+elbow_center = shapes[-1].sketch_2.center + np.array([0, -1.0 * bend_radius, 0])
+print("elbow_center = {}".format(elbow_center))
 shapes.append(
     cb.Elbow.chain(shapes[-1], bend_curvature, elbow_center, [0, 0, 1], pipe_radius)
 )
