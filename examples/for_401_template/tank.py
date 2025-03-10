@@ -1,13 +1,14 @@
 import os
-
+import json
 import classy_blocks as cb
 
-
-print(dir(cb))
+with open ('../../geo_data/tank.json', 'r') as f:
+    data = json.load(f)
 
 # a cylindrical tank with round end caps
-diameter = 0.5
-length = 0.5  # including end caps
+diameter = data['sph_radius']
+length   = data['ref_length']  # including end caps
+cell_size= data['cell_size']
 
 mesh = cb.Mesh()
 
@@ -27,7 +28,7 @@ mesh.add(cylinder)
 mesh.add(start_cap)
 mesh.add(end_cap)
 
-grader = cb.SimpleGrader(mesh, 0.05)
+grader = cb.SimpleGrader(mesh, cell_size)
 grader.grade()
 
 mesh.write(os.path.join("..", "case", "system", "blockMeshDict"), debug_path="debug.vtk")

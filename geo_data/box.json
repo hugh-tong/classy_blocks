@@ -1,0 +1,10 @@
+{  
+  "x_len": 10,
+  "y_len": 20,
+  "z_len": 2,
+  "x_cells_num": 100,
+  "y_cells_num": 200,
+  "z_cells_num": 20,
+  "default_patch_name":"walls",
+  "default_patch_type":"wall"
+}

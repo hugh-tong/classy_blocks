@@ -14,6 +14,14 @@ ref_length =  data['ref_length']
 print("Pass para to classy_block, pipe_radius = {}".format(pipe_radius))
 print("Pass para to classy_block, ref_length = {}".format(ref_length))
 
+default_patch_name = data['default_patch_name']
+default_patch_type = data['default_patch_type']
+inlet_patch_name = data['inlet_patch_name']
+outlet_patch_name = data['outlet_patch_name']
+
+print("Pass para to classy_block, default_patch_name = {}".format(default_patch_name))
+print("Pass para to classy_block, default_patch_type = {}".format(default_patch_type))
+
 # cell_size = 0.000063
 cell_size = data['cell_size']
 # NOTE: cell_size relate to mesh number:
@@ -31,16 +39,16 @@ shapes.append(cb.Cylinder([0, 0, 0], [ref_length, 0, 0], [0,pipe_radius,0]))
 shapes[-1].chop_axial(start_size=cell_size)
 shapes[-1].chop_radial(start_size=cell_size)
 shapes[-1].chop_tangential(start_size=cell_size)
-shapes[-1].set_start_patch("inlet")
+shapes[-1].set_start_patch(inlet_patch_name)
 
 # shapes.append(cb.Cylinder.chain(shapes[-1], 2.0 * ref_length))
 # shapes[-1].chop_axial(start_size=cell_size)
-shapes[-1].set_end_patch("outlet")
+shapes[-1].set_end_patch(outlet_patch_name)
 
 mesh = cb.Mesh()
 for shape in shapes:
     mesh.add(shape)
 
-mesh.set_default_patch("walls", "wall")
+mesh.set_default_patch(default_patch_name, default_patch_type)
 
 mesh.write(os.path.join("..", "case", "system", "blockMeshDict"), debug_path="debug.vtk")

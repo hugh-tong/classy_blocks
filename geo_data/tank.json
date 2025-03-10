@@ -1,5 +1,5 @@
 {  
-  "sph_radius": 0.001975,  
-  "ref_length": 0.00395,
-  "cell_size": 0.000063 
+  "sph_radius": 0.5,  
+  "ref_length": 0.5,
+  "cell_size": 0.05 
 }
