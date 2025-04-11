@@ -1,0 +1,10 @@
+{  
+  "big_radius": 5.0,  
+  "small_radius": 1.0,
+  "cell_size": 0.1,
+  "default_patch_name":"walls",
+  "default_patch_type":"wall",
+  "small_pipe_length": 1.0,
+  "big_pipe_length": 5.0,
+  "length_Frustum": 2.0
+}

@@ -4,6 +4,12 @@
 venv_*/
 tmp
 
+# freeCASD
+*.FCStd 
+*.FCBak
+*.step
+*.out
+
 # openfoam case files and results from testing
 polyMesh/
 cellToRegion
